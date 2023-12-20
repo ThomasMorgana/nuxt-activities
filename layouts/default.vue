@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <TheHeader />
+  <div class="h-screen">
     <slot />
   </div>
 </template>

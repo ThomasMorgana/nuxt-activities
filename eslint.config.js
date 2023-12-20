@@ -1,16 +1,16 @@
-import antfu from "@antfu/eslint-config";
+import antfu from '@antfu/eslint-config'
 
 export default antfu(
   { vue: true, typescript: true },
   {
-    files: ["**/*.vue"],
+    files: ['**/*.vue'],
     rules: {
-      "vue/block-order": [
-        "error",
+      'vue/block-order': [
+        'error',
         {
-          order: ["template", "script", "style"],
+          order: ['template', 'script', 'style'],
         },
       ],
     },
   },
-);
+)

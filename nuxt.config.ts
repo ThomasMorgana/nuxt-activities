@@ -4,5 +4,5 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
   },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
-});
+  modules: ['@nuxtjs/tailwindcss', 'nuxt3-leaflet', '@pinia/nuxt'],
+})
