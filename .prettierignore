@@ -4,6 +4,7 @@
 .nuxt
 .nitro
 .cache
+app.vue
 dist
 
 # Node dependencies
@@ -19,7 +20,11 @@ logs
 .idea
 .vscode
 
+
 # Local env files
 .env
 .env.*
 !.env.example
+
+.gitignore
+.prettierignore
