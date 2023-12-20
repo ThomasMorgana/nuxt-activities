@@ -2,8 +2,8 @@
 
 <template>
   <div class="grid grid-cols-3 gap-4 m-5">
-    <Search class="col-span-3" />
-    <ActivityList />
+    <ActivitySearch class="col-span-3" />
+    <ActivityList class="h-96" />
     <ActivityMap class="col-span-2" />
   </div>
 </template>

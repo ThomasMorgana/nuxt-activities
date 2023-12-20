@@ -1,8 +1,8 @@
 {
   "name": "nuxt-activities",
-  "private": true,
   "type": "module",
   "version": "1.0.0",
+  "private": true,
   "author": "Thomas M <thomas@codebuds.com>",
   "license": "MIT",
   "scripts": {
@@ -11,6 +11,10 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
@@ -24,8 +28,5 @@
     "typescript": "^5.3.3",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5"
-  },
-  "dependencies": {
-    "@pinia/nuxt": "^0.5.1"
   }
 }
