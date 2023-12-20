@@ -1,7 +1,7 @@
 <template>
   <div class="bg-green-500 overflow-y-auto hover:overflow-scroll">
-    <div>SELECTED : {{ selectedActivity }}</div>
-    <div v-for="activity in activities" :key="activity.id" @click="store.selectActivity(activity)">
+    <div>SELECTED : {{ selected }}</div>
+    <div v-for="activity in activities" :key="activity.id" @click="store.select(activity)">
       {{ activity.name }}
     </div>
   </div>
@@ -11,9 +11,9 @@
 import { useActivitiesStore } from '~/stores/activities'
 
 const store = useActivitiesStore()
-await store.loadAllActivities()
+await store.loadAll()
 const activities = computed(() => store.activities)
-const selectedActivity = computed(() => store.selectedActivity)
+const selected = computed(() => store.selected)
 </script>
 
 <style scoped></style>

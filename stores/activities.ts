@@ -1,29 +1,25 @@
 import { defineStore } from 'pinia'
-
-interface Location {
-  lat: number
-  long: number
-}
-
-interface Activity {
-  id: number
-  name: string
-  location: Location
-}
+import type { Activity } from '~/types'
 
 export const useActivitiesStore = defineStore('activities', {
   state: () => ({
     activities: [] as Activity[],
-    selectedActivity: null as Activity | null,
+    mapCenter: { lat: 0, lng: 0 },
+    selected: null as Activity | null,
   }),
   getters: {
+    centerCoordinates: state => [state.mapCenter.lat, state.mapCenter.lng],
   },
   actions: {
-    async loadAllActivities() {
-      this.activities = await $fetch('/api/activities')
+    async loadAll() {
+      const { activities, mapCenter } = await $fetch('/api/activities')
+      this.activities = activities
+      // when we get to reload on scroll this will need to be calculated
+      this.mapCenter = mapCenter
     },
-    selectActivity(activity: Activity) {
-      this.selectedActivity = activity
+    select(activity: Activity) {
+      this.selected = activity
+      this.mapCenter = this.selected.coordinates
     },
   },
 })
