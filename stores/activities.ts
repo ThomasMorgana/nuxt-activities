@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Activity } from '~/types'
+import type { Activity, Filters } from '~/types'
 
 export const useActivitiesStore = defineStore('activities', {
   state: () => ({
@@ -11,8 +11,13 @@ export const useActivitiesStore = defineStore('activities', {
     centerCoordinates: state => [state.mapCenter.lat, state.mapCenter.lng],
   },
   actions: {
-    async loadAll() {
-      const { activities, mapCenter } = await $fetch('/api/activities')
+    async loadAll(filters?: Filters) {
+      const page = filters.page ?? 0
+      const itemsPerPage = filters.itemsPerPage ?? 20
+      const queryString = filters.query ?? ''
+      const { activities, mapCenter } = await $fetch(`/api/activities?page=${page}&itemsPerPage=${itemsPerPage}&query=${queryString}`)
+
+      // this.activities = this.activities.slice(page * itemsPerPage, page + 1 * itemsPerPage)
       this.activities = activities
       // when we get to reload on scroll this will need to be calculated
       this.mapCenter = mapCenter
