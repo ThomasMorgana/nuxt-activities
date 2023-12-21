@@ -8,3 +8,9 @@ export interface Activity {
   name: string
   coordinates: Coordinates
 }
+
+export interface Filters {
+  query?: string
+  page?: number
+  itemsPerPage?: number
+}

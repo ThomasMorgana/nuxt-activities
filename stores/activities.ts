@@ -1,25 +1,50 @@
 import { defineStore } from 'pinia'
-import type { Activity } from '~/types'
+import type { Activity, Filters } from '~/types'
 
 export const useActivitiesStore = defineStore('activities', {
   state: () => ({
     activities: [] as Activity[],
-    mapCenter: { lat: 0, lng: 0 },
     selected: null as Activity | null,
+    // I though useFetch was supposed to help me get rid of this flag but doesn't seem to work, so flag to avoid double load in ssr
+    initialLoad: false,
+    currentPage: 0,
   }),
   getters: {
-    centerCoordinates: state => [state.mapCenter.lat, state.mapCenter.lng],
+    currentCenter: (state) => {
+      const { selected, activities } = state
+
+      if (selected)
+        return [selected.coordinates.lat, selected.coordinates.lng]
+
+      const center = activitiesCenter(activities)
+      return [center.lat, center.lng]
+    },
   },
   actions: {
-    async loadAll() {
-      const { activities, mapCenter } = await $fetch('/api/activities')
-      this.activities = activities
-      // when we get to reload on scroll this will need to be calculated
-      this.mapCenter = mapCenter
+    // The fetching responsability could be transfered to the page and replaced by a "pushActivities",
+    // pros : keeps the store independant from the data,
+    // cons : separate logic that is closely interwiened with the store anyway
+    // also : the official documentation does it anyway : https://pinia.vuejs.org/core-concepts/actions.html
+    async load(filters: Filters = {}) {
+      const { page = this.currentPage, itemsPerPage = 20, query = '' } = filters
+      const { data } = await useFetch(`/api/activities`, { query: { page, itemsPerPage, query } })
+
+      if (data.value) {
+        const { activities } = data.value
+        this.activities.push(...activities)
+        this.initialLoad = true
+      }
     },
     select(activity: Activity) {
       this.selected = activity
-      this.mapCenter = this.selected.coordinates
+    },
+    resetFilters() {
+      this.activities = []
+      this.currentPage = 0
+      this.load()
+    },
+    resetSelect() {
+      this.selected = null
     },
   },
 })

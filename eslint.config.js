@@ -11,6 +11,10 @@ export default antfu(
           order: ['template', 'script', 'style'],
         },
       ],
+      'vue/first-attribute-linebreak': ['error', {
+        singleline: 'ignore',
+        multiline: 'ignore',
+      }],
     },
   },
 )
