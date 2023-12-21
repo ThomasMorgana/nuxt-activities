@@ -1,11 +1,10 @@
 <template>
   <div class="bg-blue-500">
-    Component: Search
-
-    <button
-      @click="store.applyFilters({ query: '', itemsPerPage: 10, page: 3 })"
-    >
+    <button @click="store.loadAll({ query: '3', page: 2, itemsPerPage: 5 })">
       FILTER
+    </button>
+    <button @click="store.loadAll()">
+      CLEAR
     </button>
   </div>
 </template>

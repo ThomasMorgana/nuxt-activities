@@ -12,12 +12,16 @@ export const useActivitiesStore = defineStore('activities', {
   },
   actions: {
     async loadAll(filters?: Filters) {
-      const page = filters.page ?? 0
-      const itemsPerPage = filters.itemsPerPage ?? 20
-      const queryString = filters.query ?? ''
-      const { activities, mapCenter } = await $fetch(`/api/activities?page=${page}&itemsPerPage=${itemsPerPage}&query=${queryString}`)
+      let queryString = ''
+      if (filters) {
+        const page = filters.page ?? 0
+        const itemsPerPage = filters.itemsPerPage ?? 20
+        const query = filters.query ?? ''
+        queryString = `?page=${page}&itemsPerPage=${itemsPerPage}&query=${query}`
+      }
 
-      // this.activities = this.activities.slice(page * itemsPerPage, page + 1 * itemsPerPage)
+      const { activities, mapCenter } = await $fetch(`/api/activities${queryString}`)
+
       this.activities = activities
       // when we get to reload on scroll this will need to be calculated
       this.mapCenter = mapCenter
