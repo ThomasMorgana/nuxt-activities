@@ -36,6 +36,8 @@ export const useActivitiesStore = defineStore('activities', {
       }
     },
     select(activity: Activity) {
+      if (this.selected && this.selected.id === activity.id)
+        return this.resetSelect()
       this.selected = activity
     },
     resetFilters() {

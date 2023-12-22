@@ -11,7 +11,7 @@ export default defineEventHandler((event) => {
   const mapCenter = globalMapCenter
   const queryParams: Filters = getQuery(event)
 
-  // page and itemsPerPage are strings instead of numbers for some reason (hence the + sign)
+  // page and itemsPerPage are read from a string instead of being numbers (hence the + sign)
   // could make a cleaner for the filters, for the getQuery or make filter factory maybe
   // For now the easy fix is to use '+' signs to cast them to number
   const { query, page, itemsPerPage } = queryParams
