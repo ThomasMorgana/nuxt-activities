@@ -4,8 +4,9 @@ export interface Coordinates {
 }
 
 export interface Activity {
-  id: number
+  id: string
   name: string
+  timestamp: number
   coordinates: Coordinates
 }
 

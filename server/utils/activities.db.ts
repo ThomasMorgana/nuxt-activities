@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import type { Activity, Coordinates } from '~/types'
 import { degreesToRadians, radiansToDegrees } from '~/utils/coordinates'
 
@@ -26,8 +27,9 @@ export default class ActivityDB {
 
   generateActivity(id: number, lat: number, lng: number): Activity {
     return {
-      id,
-      name: `Activity ${id}`,
+      id: faker.string.uuid(),
+      name: faker.lorem.words({ min: 1, max: 4 }),
+      timestamp: faker.date.soon({ days: 7 }).getTime(),
       coordinates: {
         lat,
         lng,
@@ -37,8 +39,7 @@ export default class ActivityDB {
 
   generateList(amount: number) {
     for (let i = 1; i <= amount; i++) {
-      const lat = i % 2 ? this.lat + Math.random() / 10 : this.lat - Math.random() / 10
-      const lng = i % 3 ? this.lng - Math.random() / 10 : this.lng + Math.random() / 10
+      const [lat, lng] = faker.location.nearbyGPSCoordinate({ origin: [this.lat, this.lng] })
       this.activities.push(this.generateActivity(i, lat, lng))
 
       const latRad = degreesToRadians(lat)
