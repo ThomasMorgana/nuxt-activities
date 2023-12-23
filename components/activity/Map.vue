@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LMap :zoom="12" :center="currentCenter">
+    <LMap :zoom="12" :center="currentCenter" class="rounded-md">
       <LTileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" layer-type="base" name="OpenStreetMap" />
       <LMarker v-for="activity in activities" :key="activity.id"
         :lat-lng="[activity.coordinates.lat, activity.coordinates.lng]"
