@@ -1,6 +1,6 @@
 <template>
   <div class="bg-blue-500">
-    <button @click="load({ query: '3', page: 2, itemsPerPage: 5 })">
+    <button @click="load()">
       FILTER
     </button>
     <button @click="resetFilters()">

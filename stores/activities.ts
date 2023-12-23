@@ -24,7 +24,7 @@ export const useActivitiesStore = defineStore('activities', {
     // The fetching responsability could be transfered to the page and replaced by a "pushActivities",
     // pros : keeps the store independant from the data,
     // cons : separate logic that is closely interwiened with the store anyway
-    // also : the official documentation does it anyway : https://pinia.vuejs.org/core-concepts/actions.html
+    // also : the official documentation also does it here anyway : https://pinia.vuejs.org/core-concepts/actions.html
     async load(filters: Filters = {}) {
       const { page = this.currentPage, itemsPerPage = 20, query = '' } = filters
       const { data } = await useFetch(`/api/activities`, { query: { page, itemsPerPage, query } })

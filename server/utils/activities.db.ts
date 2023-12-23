@@ -25,7 +25,7 @@ export default class ActivityDB {
     this.generateList(this.amount)
   }
 
-  generateActivity(id: number, lat: number, lng: number): Activity {
+  generateActivity(lat: number, lng: number): Activity {
     return {
       id: faker.string.uuid(),
       name: faker.lorem.words({ min: 1, max: 4 }),
@@ -40,7 +40,7 @@ export default class ActivityDB {
   generateList(amount: number) {
     for (let i = 1; i <= amount; i++) {
       const [lat, lng] = faker.location.nearbyGPSCoordinate({ origin: [this.lat, this.lng] })
-      this.activities.push(this.generateActivity(i, lat, lng))
+      this.activities.push(this.generateActivity(lat, lng))
 
       const latRad = degreesToRadians(lat)
       const lngRad = degreesToRadians(lng)
@@ -51,6 +51,7 @@ export default class ActivityDB {
     }
 
     // This is used to center the map when no activity is selected to a pretty good approximation of the "center" of the activities locations
+    // We could use the utils function (used in the store), but as we're generating the activities here, we can calculate that on the fly and avoid a for loop call
     this.mapCenter = {
       lng: radiansToDegrees(Math.atan2(this.avgY, this.avgX)),
       lat: radiansToDegrees(Math.atan2(this.avgZ, Math.sqrt(this.avgX * this.avgX + this.avgY * this.avgY))),

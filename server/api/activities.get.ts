@@ -5,7 +5,7 @@ import type { Activity, Filters } from '~/types'
 const activitiesDb = new ActivityDB()
 const globalMapCenter = activitiesDb.mapCenter
 
-// All of this should be a call to some backend or database in real life, this is mocked data generation
+// All of this should be a call to some backend or database, this is mocked data generation
 export default defineEventHandler((event) => {
   const allActivities = activitiesDb.activities
   const mapCenter = globalMapCenter
