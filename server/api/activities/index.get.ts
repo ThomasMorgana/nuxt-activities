@@ -1,14 +1,9 @@
-import ActivityDB from '../utils/activities.db'
+import { activityDB } from '../../utils/activities.db'
 import type { Activity, Filters } from '~/types'
-
-// Generate fake data
-const activitiesDb = new ActivityDB()
-const globalMapCenter = activitiesDb.mapCenter
 
 // All of this should be a call to some backend or database, this is mocked data generation
 export default defineEventHandler((event) => {
-  const allActivities = activitiesDb.activities
-  const mapCenter = globalMapCenter
+  const allActivities = activityDB.activities
   const queryParams: Filters = getQuery(event)
 
   // page and itemsPerPage are read from a string instead of being numbers (hence the + sign)
@@ -26,5 +21,5 @@ export default defineEventHandler((event) => {
     activities = activities.slice(startIndex, endIndex)
   }
 
-  return { activities, mapCenter }
+  return activities
 })

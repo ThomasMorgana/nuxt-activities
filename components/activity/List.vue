@@ -22,24 +22,34 @@
 </template>
 
 <script setup lang="ts">
-import { useActivitiesStore } from '~/stores/activities'
-
 const store = useActivitiesStore()
+const route = useRoute()
+const router = useRouter()
 const endOfList = ref(null)
-const { activities, selected, currentPage } = toRefs(store)
+const { activities, selected, currentFilters } = toRefs(store)
 const { load, select } = store
 
 function handleIntersection(entries: IntersectionObserverEntry[]) {
   entries.forEach((entry) => {
-    if (entry.isIntersecting)
-      load({ page: ++currentPage.value })
+    // This last check is for typescript, had to use undefined cause page can be 0, and that's falsy in JS.
+    if (entry.isIntersecting && typeof currentFilters.value.page !== 'undefined')
+      load({ page: ++currentFilters.value.page, ...currentFilters })
   })
 }
 
 watch(selected, (newSelected) => {
   if (newSelected && newSelected.id) {
-    const activity = document.getElementById(newSelected.id)
+    const { id } = newSelected
+
+    const activity = document.getElementById(id)
     const container = document.getElementById('container')
+
+    const currentQuery = route.query
+
+    router.push({
+      path: '/',
+      query: { ...currentQuery, selected: id },
+    })
 
     if (activity && container) {
       const rect = activity.getBoundingClientRect()
