@@ -10,19 +10,23 @@
 
 <script lang="ts" setup>
 const store = useActivitiesStore()
-const { currentFilters } = storeToRefs(store)
+const { currentFilters, selected } = storeToRefs(store)
 const { filter } = store
 const route = useRoute()
 const router = useRouter()
 const { query: routeQuery } = route
 currentFilters.value = { ...currentFilters.value, query: routeQuery.query as string ?? '' }
+if (routeQuery.selected)
+  selected.value = await $fetch(`/api/activities/${routeQuery.selected}`)
 
 watch(currentFilters, (newCurrentFilters) => {
+  // this removes the selected querystring, TODO : construct query in 2 phases, one for filters one for selected ?
   if (newCurrentFilters) {
-    const { query = '' } = newCurrentFilters
-
-    const newQuery = query ? { ...routeQuery, query } : {}
-
+    const { query } = newCurrentFilters
+    // const selectedId = routeQuery.selected
+    let newQuery = {}
+    newQuery = query ? { ...newQuery, query } : {}
+    // newQuery = selectedId ? { selected:selectedId, query } : {}
     router.push({
       path: '/',
       query: newQuery,
