@@ -10,25 +10,14 @@
 
 <script lang="ts" setup>
 const store = useActivitiesStore()
-const { currentFilters } = storeToRefs(store)
+const { currentFilters, selected } = storeToRefs(store)
 const { filter } = store
 const route = useRoute()
-const router = useRouter()
 const { query: routeQuery } = route
+const selectedId = routeQuery.selected
 currentFilters.value = { ...currentFilters.value, query: routeQuery.query as string ?? '' }
-
-watch(currentFilters, (newCurrentFilters) => {
-  if (newCurrentFilters) {
-    const { query = '' } = newCurrentFilters
-
-    const newQuery = query ? { ...routeQuery, query } : {}
-
-    router.push({
-      path: '/',
-      query: newQuery,
-    })
-  }
-})
+if (selectedId)
+  selected.value = await $fetch(`/api/activities/${selectedId}`)
 
 onMounted(() => {
   filter()

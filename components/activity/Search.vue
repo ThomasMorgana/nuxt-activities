@@ -12,14 +12,14 @@
       <button
         class="rounded border border-gray-300 px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
         type="button"
-        @click="filter()"
+        @click="applyFilters()"
       >
         Search
       </button>
       <button
         class="rounded border border-gray-300 px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
         type="button"
-        @click="resetActivities()"
+        @click="clearActivities()"
       >
         Clear
       </button>
@@ -31,9 +31,30 @@
 import { useActivitiesStore } from '~/stores/activities'
 
 const store = useActivitiesStore()
-const { currentFilters } = storeToRefs(store)
+const { currentFilters, selected } = storeToRefs(store)
 
 const { filter, resetActivities } = store
+const router = useRouter()
+
+function applyFilters() {
+  const { query } = currentFilters.value
+  let newQuery = {}
+  newQuery = query ? { ...newQuery, query } : {}
+  const selectedId = selected.value ? selected.value.id : null
+  newQuery = selectedId ? { ...newQuery, selected: selectedId } : { ...newQuery }
+  router.push({
+    path: '/',
+    query: newQuery,
+  })
+  filter()
+}
+
+function clearActivities() {
+  resetActivities()
+  router.push({
+    path: '/',
+  })
+}
 </script>
 
 <style scoped></style>
