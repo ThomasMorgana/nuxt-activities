@@ -37,6 +37,13 @@ function handleIntersection(entries: IntersectionObserverEntry[]) {
   })
 }
 
+onMounted(() => {
+  const observer = new IntersectionObserver(handleIntersection)
+
+  if (endOfList.value)
+    observer.observe(endOfList.value)
+})
+
 watch(selected, (newSelected) => {
   if (newSelected && newSelected.id) {
     const { id } = newSelected
@@ -61,13 +68,6 @@ watch(selected, (newSelected) => {
         activity.scrollIntoView()
     }
   }
-})
-
-onMounted(() => {
-  const observer = new IntersectionObserver(handleIntersection)
-
-  if (endOfList.value)
-    observer.observe(endOfList.value)
 })
 </script>
 
