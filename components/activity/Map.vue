@@ -15,6 +15,9 @@
 <script setup>
 import { useActivitiesStore } from '~/stores/activities'
 
+// Could directly import only what is used here from Leaflet to make treeshaking easier/faster/better I guess ?
+// Not sure how Nuxt 3 does that under the hood, maybe it's clever enought to optimize itself, will have to check, low prio
+
 const store = useActivitiesStore()
 
 const iconBaseOptions = {
@@ -27,6 +30,7 @@ const baseMarker = L.icon({
   ...iconBaseOptions,
 })
 
+// Is there any caveats to override the iconUrl here ? Low prio
 const selectedMarker = L.icon({
   ...iconBaseOptions,
   iconUrl: '/img/selected-marker.png',

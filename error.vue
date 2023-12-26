@@ -24,6 +24,7 @@
 </template>
 
 <script setup>
+// Custom error page, because why not ?
 const error = useError()
 
 function clearErrorAndRedirect() {

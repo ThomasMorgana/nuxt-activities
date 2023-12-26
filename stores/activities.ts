@@ -21,12 +21,16 @@ export const useActivitiesStore = defineStore('activities', {
   actions: {
     async load(filters: Filters = {}) {
       const { page = 0, itemsPerPage = 20, query = '' } = { ...this.currentFilters, ...filters }
+
       try {
         const { data } = await useFetch(`/api/activities`, { query: { page, itemsPerPage, query } })
 
         if (data.value)
           this.activities.push(...data.value)
 
+        // If an activity is selected, but doesn't appear in new fetch, we keep it
+        // Had to use some instead of includes cause Javascript is Javascript
+        // Also have to use '!' beacause the linter doesn't understands that I check for null just before for some reason
         if (this.selected && !this.activities.some(activity => activity.id === this.selected!.id))
           this.activities.unshift(this.selected)
       }
@@ -43,7 +47,9 @@ export const useActivitiesStore = defineStore('activities', {
 
         if (activities)
           this.activities = activities
-
+        // If an activity is selected, but doesn't appear in new fetch, we keep it
+        // Had to use some instead of includes cause Javascript is Javascript
+        // Also have to use '!' beacause the linter doesn't understands that I check for null just before for some reason
         if (this.selected && !this.activities.some(activity => activity.id === this.selected!.id))
           this.activities.unshift(this.selected)
       }

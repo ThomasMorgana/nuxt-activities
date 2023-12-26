@@ -40,6 +40,7 @@ async function applyFilters() {
   const { query } = currentFilters.value
   const selectedId = selected.value ? selected.value.id : null
 
+  // We need to keep existing query
   const newQuery = {
     ...(query ? { query } : {}),
     ...(selectedId ? { selected: selectedId } : {}),

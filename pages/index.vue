@@ -21,5 +21,6 @@ const selectedId = routeQuery.selected
 currentFilters.value = { ...currentFilters.value, query: routeQuery.query as string ?? '' }
 selected.value = selectedId ? await $fetch(`/api/activities/${selectedId}`) : null
 
+// This in charge of initial load
 await filter()
 </script>

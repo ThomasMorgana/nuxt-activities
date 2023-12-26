@@ -3,6 +3,7 @@ export interface Coordinates {
   lng: number
 }
 
+// Activities are immutable by frontend
 export interface Activity {
   readonly id: string
   readonly name: string

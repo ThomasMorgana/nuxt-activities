@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
   },
+  // Pre-render home page, so first batch of activities are served with HTML for SEO
   nitro: {
     prerender: {
       routes: ['/'],

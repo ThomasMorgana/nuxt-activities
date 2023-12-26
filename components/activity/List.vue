@@ -30,6 +30,7 @@ const { activities, selected, currentFilters } = toRefs(store)
 const { load, select } = store
 
 function handleIntersection(entries: IntersectionObserverEntry[]) {
+  // This sometimes double fire if you spam "clear" button really fast
   entries.forEach((entry) => {
     if (entry.isIntersecting && typeof currentFilters.value.page !== 'undefined')
       load({ page: ++currentFilters.value.page, ...currentFilters })
@@ -47,6 +48,7 @@ watch(selected, (newSelected) => {
   if (newSelected && newSelected.id) {
     const { id } = newSelected
 
+    // I guess I could have done something with dynamic refs, but seems over-complicated for something that works just fine like that
     const activity = document.getElementById(id)
     const container = document.getElementById('container')
 
