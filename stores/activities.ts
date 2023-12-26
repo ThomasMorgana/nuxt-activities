@@ -69,6 +69,7 @@ export const useActivitiesStore = defineStore('activities', {
       this.activities = []
       this.selected = null
       this.currentFilters = { page: 0, itemsPerPage: 20, query: '' }
+      this.initialLoad = false
       this.load()
     },
     resetSelect() {

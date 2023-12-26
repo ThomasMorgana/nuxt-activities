@@ -20,6 +20,7 @@ if (selectedId)
   selected.value = await $fetch(`/api/activities/${selectedId}`)
 
 onMounted(() => {
+  // This is also in charge of initial load
   filter()
 })
 </script>
