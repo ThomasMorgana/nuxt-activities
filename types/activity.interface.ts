@@ -4,14 +4,14 @@ export interface Coordinates {
 }
 
 export interface Activity {
-  id: string
-  name: string
-  timestamp: number
-  coordinates: Coordinates
+  readonly id: string
+  readonly name: string
+  readonly coordinates: Coordinates
+  readonly timestamp: number
 }
 
 export interface Filters {
-  query?: string
-  page?: number
   itemsPerPage?: number
+  page?: number
+  query?: string
 }

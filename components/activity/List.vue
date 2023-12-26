@@ -76,5 +76,3 @@ watch(selected, (newSelected) => {
   }
 })
 </script>
-
-<style scoped></style>

@@ -8,18 +8,23 @@ export default defineEventHandler((event) => {
 
   // page and itemsPerPage are read from a string instead of being numbers (hence the + sign)
   // could make a cleaner for the filters, for the getQuery or make filter factory maybe
-  // For now the easy fix is to use '+' signs to cast them to number
+  // For now the easy fix is to use '+' signs or Number() to cast them to number
+  // Should probably check if convertion was successful before using them
   const { query, page, itemsPerPage } = queryParams
 
   let activities: Activity[] = query
-    ? allActivities.filter(activity => activity.name.includes(query))
+    ? filterActivitiesByName(allActivities, query)
     : [...allActivities]
 
   if (page && itemsPerPage) {
-    const startIndex = +page * +itemsPerPage
-    const endIndex = +itemsPerPage + startIndex
+    const startIndex = Number(page) * Number(itemsPerPage)
+    const endIndex = Number(itemsPerPage) + startIndex
     activities = activities.slice(startIndex, endIndex)
   }
 
   return activities
 })
+
+function filterActivitiesByName(activities: Activity[], query: string): Activity[] {
+  return activities.filter(activity => activity.name.includes(query))
+}

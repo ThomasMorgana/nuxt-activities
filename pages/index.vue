@@ -10,19 +10,19 @@
 
 <script lang="ts" setup>
 const store = useActivitiesStore()
+const route = useRoute()
+
 const { currentFilters, selected } = storeToRefs(store)
 const { filter } = store
-const route = useRoute()
+
 const { query: routeQuery } = route
 const selectedId = routeQuery.selected
+
 currentFilters.value = { ...currentFilters.value, query: routeQuery.query as string ?? '' }
-if (selectedId)
-  selected.value = await $fetch(`/api/activities/${selectedId}`)
+selected.value = selectedId ? await $fetch(`/api/activities/${selectedId}`) : null
 
 onMounted(() => {
   // This is also in charge of initial load
   filter()
 })
 </script>
-
-<style scoped></style>

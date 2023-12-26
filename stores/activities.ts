@@ -22,14 +22,6 @@ export const useActivitiesStore = defineStore('activities', {
     },
   },
   actions: {
-    async initialize() {
-      const { data } = await useFetch(`/api/activities`, { query: this.currentFilters })
-
-      if (data.value) {
-        this.activities = data.value
-        this.initialLoad = true
-      }
-    },
     // The fetching responsability could be transfered to the page and replaced by a "pushActivities",
     // pros : keeps the store independant from the data,
     // cons : separate logic that is closely interwiened with the store anyway

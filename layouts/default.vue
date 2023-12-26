@@ -1,9 +1,5 @@
 <template>
-  <div class="h-screen">
+  <div class="h-screen  bg-slate-100">
     <slot />
   </div>
 </template>
-
-<script lang="ts" setup></script>
-
-<style scoped></style>

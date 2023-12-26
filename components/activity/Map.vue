@@ -17,23 +17,21 @@ import { useActivitiesStore } from '~/stores/activities'
 
 const store = useActivitiesStore()
 
-const iconSize = [38, 38]
-const iconAnchor = [0, 0]
+const iconBaseOptions = {
+  iconSize: [38, 38],
+  iconAnchor: [0, 0],
+  iconUrl: '/img/base-marker.png',
+}
 
 const baseMarker = L.icon({
-  iconUrl: '/img/base-marker.png',
-  iconSize,
-  iconAnchor,
+  ...iconBaseOptions,
 })
 
 const selectedMarker = L.icon({
+  ...iconBaseOptions,
   iconUrl: '/img/selected-marker.png',
-  iconSize,
-  iconAnchor,
 })
 
 const { activities, selected, currentCenter } = storeToRefs(store)
 const { select } = store
 </script>
-
-<style></style>

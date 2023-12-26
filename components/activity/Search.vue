@@ -38,14 +38,18 @@ const router = useRouter()
 
 function applyFilters() {
   const { query } = currentFilters.value
-  let newQuery = {}
-  newQuery = query ? { ...newQuery, query } : {}
   const selectedId = selected.value ? selected.value.id : null
-  newQuery = selectedId ? { ...newQuery, selected: selectedId } : { ...newQuery }
+
+  const newQuery = {
+    ...(query ? { query } : {}),
+    ...(selectedId ? { selected: selectedId } : {}),
+  }
+
   router.push({
     path: '/',
     query: newQuery,
   })
+
   filter()
 }
 
@@ -56,5 +60,3 @@ function clearActivities() {
   })
 }
 </script>
-
-<style scoped></style>
