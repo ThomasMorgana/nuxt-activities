@@ -42,7 +42,7 @@ Deploy on Vercel
 Simply push on develop
 ```
 
-Live URL : nuxt-activities-morgana.vercel.app
+Live URL : [nuxt-activities-morgana.vercel.app](nuxt-activities-morgana.vercel.app)
 
 Main Improvments TODO :
 

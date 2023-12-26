@@ -26,19 +26,14 @@ const store = useActivitiesStore()
 const route = useRoute()
 const router = useRouter()
 const endOfList = ref(null)
-const { activities, selected, currentFilters, initialLoad } = toRefs(store)
+const { activities, selected, currentFilters } = toRefs(store)
 const { load, select } = store
 
 function handleIntersection(entries: IntersectionObserverEntry[]) {
-  if (initialLoad.value) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && typeof currentFilters.value.page !== 'undefined')
-        load({ page: ++currentFilters.value.page, ...currentFilters })
-    })
-  }
-  else {
-    initialLoad.value = true
-  }
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && typeof currentFilters.value.page !== 'undefined')
+      load({ page: ++currentFilters.value.page, ...currentFilters })
+  })
 }
 
 onMounted(() => {

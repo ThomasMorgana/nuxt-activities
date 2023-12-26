@@ -21,7 +21,5 @@ const selectedId = routeQuery.selected
 currentFilters.value = { ...currentFilters.value, query: routeQuery.query as string ?? '' }
 selected.value = selectedId ? await $fetch(`/api/activities/${selectedId}`) : null
 
-onMounted(() => {
-  filter()
-})
+await filter()
 </script>

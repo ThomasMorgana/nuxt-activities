@@ -4,5 +4,10 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
   },
+  nitro: {
+    prerender: {
+      routes: ['/'],
+    },
+  },
   modules: ['@nuxtjs/tailwindcss', 'nuxt3-leaflet', '@pinia/nuxt'],
 })

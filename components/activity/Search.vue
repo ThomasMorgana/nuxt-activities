@@ -36,7 +36,7 @@ const { currentFilters, selected } = storeToRefs(store)
 const { filter, resetActivities } = store
 const router = useRouter()
 
-function applyFilters() {
+async function applyFilters() {
   const { query } = currentFilters.value
   const selectedId = selected.value ? selected.value.id : null
 
@@ -50,7 +50,7 @@ function applyFilters() {
     query: newQuery,
   })
 
-  filter()
+  await filter()
 }
 
 function clearActivities() {

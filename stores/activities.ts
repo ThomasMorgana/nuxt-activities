@@ -5,7 +5,6 @@ export const useActivitiesStore = defineStore('activities', {
   state: () => ({
     activities: [] as Activity[],
     selected: null as Activity | null,
-    initialLoad: false,
     currentFilters: { page: 0, itemsPerPage: 20, query: '' } as Filters,
   }),
   getters: {
@@ -57,12 +56,11 @@ export const useActivitiesStore = defineStore('activities', {
         return this.resetSelect()
       this.selected = activity
     },
-    resetActivities() {
+    async resetActivities() {
       this.activities = []
       this.selected = null
       this.currentFilters = { page: 0, itemsPerPage: 20, query: '' }
-      this.initialLoad = false
-      this.load()
+      await this.load()
     },
     resetSelect() {
       this.selected = null
