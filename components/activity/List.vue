@@ -30,10 +30,8 @@ const { activities, selected, currentFilters, initialLoad } = toRefs(store)
 const { load, select } = store
 
 function handleIntersection(entries: IntersectionObserverEntry[]) {
-  // This is a very clunky fix, but it's christmas, it's late, and the only edge case is spamming the "search" button with the same query to trigger double load
   if (initialLoad.value) {
     entries.forEach((entry) => {
-    // This last check is for typescript, had to use undefined cause page can be 0, and that's falsy in JS.
       if (entry.isIntersecting && typeof currentFilters.value.page !== 'undefined')
         load({ page: ++currentFilters.value.page, ...currentFilters })
     })
@@ -76,5 +74,3 @@ watch(selected, (newSelected) => {
   }
 })
 </script>
-
-<style scoped></style>

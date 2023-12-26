@@ -40,20 +40,7 @@ class ActivityDB {
     for (let i = 1; i <= amount; i++) {
       const [lat, lng] = faker.location.nearbyGPSCoordinate({ origin: [this.lat, this.lng] })
       this.activities.push(this.generateActivity(lat, lng))
-
-      // const latRad = degreesToRadians(lat)
-      // const lngRad = degreesToRadians(lng)
-
-      // this.avgX += Math.cos(latRad) * Math.cos(lngRad) / amount
-      // this.avgY += Math.cos(latRad) * Math.sin(lngRad) / amount
-      // this.avgZ += Math.sin(latRad) / amount
     }
-
-    // This is used to center the map when no activity is selected to a pretty good approximation of the "center" of the activities locations
-    // this.mapCenter = {
-    //   lng: radiansToDegrees(Math.atan2(this.avgY, this.avgX)),
-    //   lat: radiansToDegrees(Math.atan2(this.avgZ, Math.sqrt(this.avgX * this.avgX + this.avgY * this.avgY))),
-    // }
   }
 }
 

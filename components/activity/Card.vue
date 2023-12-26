@@ -35,5 +35,3 @@ const date = new Date(activity.timestamp)
 
 const coordinatesToString = (c: Coordinates) => `lat: ${c.lat.toFixed(5)} ; lng:  ${c.lng.toFixed(5)}`
 </script>
-
-<style scoped></style>
